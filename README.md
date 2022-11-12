@@ -27,7 +27,7 @@ This project is part of phase 2 of the Santander and BEDU scholarship.
 * [DBeaver](https://dbeaver.io/)
 
 
-## 2. Isntall
+## 2. Install
 
 Requisitos
 
