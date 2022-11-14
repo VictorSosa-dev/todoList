@@ -8,7 +8,10 @@ const authenticate = (req, res, next) => {
   const { authorization } = req.headers
   jwt.verify(authorization, secretkey, async (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: 'Invalid token' })
+      return res.status(401).json({ message:{
+        msgBody: "Unauthorized",
+        msgError: err
+      }})
     }
     req.user = await sequelize.models.users.findOne({ where: { id: decoded.userId } })
     next()

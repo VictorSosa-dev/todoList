@@ -15,72 +15,74 @@ This project is part of phase 2 of the Santander and BEDU scholarship.
 ## 1. Technologies
 
 * [Sequelize](https://sequelize.org/)
-* [jsonwebtoken](https://nodejs.org/api/crypto.html)
+* [jsonwebtoken](https://jwt.io/)
 * [Dotenv](https://www.npmjs.com/package/dotenv)
 * [Express](https://expressjs.com/)
 * [Nodemon](https://www.npmjs.com/package/nodemon)
-* [MySQL](https://www.sqlite.org/index.html)
-* [Render](https://render.com/)
+* [MySQL](https://www.mysql.com/)
+* [Heroku](https://dashboard.heroku.com/)
 * [Git](https://git-scm.com/)
 * [Github](https://github.com/)
 * [Docker](https://www.docker.com/)
 * [DBeaver](https://dbeaver.io/)
 
-
-## 2. Install
-
-Requisitos
-
-Tener docker
-
-ejecutat los siguientes comandos en la terminal o seguir el tutorial
-
-https://platzi.com/tutoriales/1432-docker/3268-como-crear-un-contenedor-con-docker-mysql-y-persistir-la-informacion/
-
-Crear volumen
-
-docker volume create mysql-sb-data
-
-docker run -d -p 33061:3306 --name mysql-db  -e MYSQL_ROOT_PASSWORD=2940 --mount src=mysql-db-data,dst=/var/lib/mysql mysql
+<a name="installation"></a>
+## 2. Installation and run instructions
+ 
+### Requirements
 
 
-## Conectarnos a DB desde terminla
+Have the MySQL or if you prefer to use a docker container.
 
-docker exec -it mysql-db mysql -p
+Follow the tutorial if you use docker. [Tutorial](https://platzi.com/tutoriales/1432-docker/3268-como-crear-un-contenedor-con-docker-mysql-y-persistir-la-informacion/)
 
-## Conectarse con un Gestor de base de datos
+Use docker
+```
+$ docker run -d -p 33061:3306 --name mysql-db  -e MYSQL_ROOT_PASSWORD=2940
 
-Datos para la conexion
+```
 
-        "username": "root",
-        "password": "2940",
-        "database": "todo",
-        "host": "localhost",
-        "port": "33061",
-        "dialect": "mysql"
+Connect to the MySQL service and create a database
 
-Despues Descargar el proyecto y hacer las migraciones
+Variables for connection
 
+```
+USER=root
+PASSWORD=2940
+DATABASE=todo
+HOST=127.0.0.1
+PORT=33061
+DIALECT=mysql
+```
 
-Hacer la migración
+### Install project
 
+Create a new folder and clone the repository.
+Opend the terminal and type:
+```bash
+	$ git clone https://github.com/antoniomd-fi/toDoList.git
+```
+In the terminal type:
+```bash
+   $ cd toDoList
+```
+
+Install node modules and run the application.
+```bash
+   $ npm install
+```
+
+Create tables
+
+In the project folder open terminal and run the following commands
+
+```
 ./node_modules/.bin/sequelize  db:migrate
 
-Los siguentes comandos son para hacer los archivos para la migracion y para desahacer las tablas en caso de un error
+```
 
-Crear archivo de migracion
-
-./node_modules/.bin/sequelize migration:create --name CreateTabltodoTasks
-
-Deshacer las tablas
-
-./node_modules/.bin/sequelize  db:migrate:undo
-
-
-Pruebas en insomia
-
-Datos
-
+<a name="usage"></a>
+# Usage
 Rutas
 
 Post
@@ -97,17 +99,22 @@ localhost:3000/auth/signUp
 Post
 localhost:3000/auth/logIn
 
+```
 {
 	"email":"victor@gmail.com",
-	"password":"tito"
+	"password":"pass"
 }
+```
 
 Notas
 
 Post
 localhost:3000/todo
+
+```
 {
 	"title": "PRUEBA 2",
   "description": "test 2",
 	"userId":"4"
 }
+```
