@@ -17,7 +17,7 @@ const logIn =  async (req, res) => {
   
     // Generate a token
     const token = jwt.sign({ userId: user.id }, secretkey, {
-      expiresIn: 36000,
+      expiresIn: 3600 // 1 hour, 
     });
   
     return res.json({
