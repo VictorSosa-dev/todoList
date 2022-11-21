@@ -6,7 +6,7 @@ const user = require('./user.routes.js')
 
 
 router.get('/', (req, res) => {
-    res.send('My Todo App')
+    res.send('<h1> Welcome toDoList  </h1>')
 })
 
 router.use('/auth', auth)

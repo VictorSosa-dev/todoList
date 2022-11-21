@@ -6,7 +6,7 @@ const {
     createTodoTask,
     deleteTodoTask,
     updateTodoTask
-} = require('../controllers/todoTask.controllers.js');
+} = require('../controllers/todoTask.controllers.js.js');
 
 router.get('/', permission('client','admin'), getTodoTasks);
 router.post('/', permission('client','admin'), createTodoTask);
