@@ -4,11 +4,16 @@ const sequelize = require('../config/db.js')
 const todoTasks = sequelize.define('todoTasks', {
     title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        required: true
     },
     description: {
-        type: DataTypes.STRING
-        // allowNull defaults to true
+        type: DataTypes.STRING,
+        required: true
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        required: true,
     },
     userId: {
         type: DataTypes.INTEGER,
