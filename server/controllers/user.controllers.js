@@ -1,13 +1,13 @@
-const sequelize = require('../config/db.js')
-
+const users = require('../models/users')
+const todoTasks = require('../models/todoTasks')
 async function getUsers(req, res) {
-    const users = await sequelize.models.users.findAll();
-    if (users) res.status(200).json(users)
+    const allUsers = await users.findAll();
+    if (allUsers) res.status(200).json(allUsers)
     else res.status(404).json({message: "No users found"})
 }
 
 async function getUserById(req, res) {
-    const user = await sequelize.models.users.findByPk(req.params.id);
+    const user = await users.findByPk(req.params.id);
     if (user) res.status(200).json(user)
     else res.status(404).json({message: "No user found"})
 }
@@ -15,14 +15,14 @@ async function getUserById(req, res) {
 
 //Delete user and all his todoTasks
 async function deleteUserAndTodoTasks(req, res) {
-    const user = await sequelize.models.users.findByPk(req.params.id);
+    const user = await users.findByPk(req.params.id);
     if (user) {
-        await sequelize.models.todoTasks.destroy({
+        await todoTasks.destroy({
             where: {
                 userId: req.params.id
             }
         })
-        await sequelize.models.users.destroy({
+        await users.destroy({
             where: {
                 id: req.params.id
             }
@@ -34,7 +34,7 @@ async function deleteUserAndTodoTasks(req, res) {
 }
 
 async function updateUser(req, res) {
-    const user = await sequelize.models.users.findByPk(req.params.id);
+    const user = await users.findByPk(req.params.id);
     if (user) {
         await user.update(req.body);
         res.status(200).json({message: "User updated"})

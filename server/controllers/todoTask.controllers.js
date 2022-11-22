@@ -1,17 +1,17 @@
-const sequelize = require("../config/db")
+const todoTasks = require('../models/todoTasks')
 
 async function getTodoTasks(req, res) {
     const { user } = req
-    const todoTasks = await sequelize.models.todoTasks.findAll({
+    const todo = await todoTasks.findAll({
         where: { userId: user.id }
     })
-    res.json(todoTasks)
+    res.json(todo)
 }
 
 async function createTodoTask(req, res) {
     const { user } = req
     if(user.id == req.body.userId) {
-        const todoTask = await sequelize.models.todoTasks.create({
+        const todoTask = await todoTasks.create({
             title: req.body.title,
             description: req.body.description,
             userId: req.user.id
@@ -24,7 +24,14 @@ async function createTodoTask(req, res) {
 }
 
 async function deleteTodoTask(req, res) {
-    await sequelize.models.todoTasks.destroy({
+    const todoTask = await todoTasks.findOne({
+        where: { id: req.params.id }
+    })
+    if(!todoTask){
+        return res.status(404).json({ message: 'Task not found' })
+    }
+
+    await todoTasks.destroy({
         where: {
             id: req.params.id
         }
@@ -33,7 +40,15 @@ async function deleteTodoTask(req, res) {
 }
 
 async function updateTodoTask(req, res) {
-    await sequelize.models.todoTasks.update(req.body, {
+    const todoTask = await todoTasks.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    if(!todoTask){
+        return res.status(404).json({ message: 'Task not found' })
+    }
+    await todoTasks.update(req.body, {
         where: {
             id: req.params.id
         }

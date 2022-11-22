@@ -1,6 +1,6 @@
 // authentication.js
 const { response } = require('express')
-const sequelize = require('../config/db.js')
+const users = require('../models/users.js');
 const jwt = require('jsonwebtoken')
 const secretkey = require('../config/secret.js')
 
@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
         msgError: err
       }})
     }
-    req.user = await sequelize.models.users.findOne({ where: { id: decoded.userId } })
+    req.user = await users.findOne({ where: { id: decoded.userId } })
     next()
   })
 }

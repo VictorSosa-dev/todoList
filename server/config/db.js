@@ -1,26 +1,16 @@
 const { Sequelize } = require('sequelize');
-const userModel = require('../models/users');
-const todoTaskModel = require('../models/todoTasks');
 
-const sequelize = new Sequelize(
-    'todo',
-    'root',
-    '2940',
-    {
-      host: 'localhost',
-      dialect: 'mysql',
-      port: 33061,
-      logging: true
-    }
-)
-
-const models = [userModel, todoTaskModel]
-
-for (let model of models) {
-    model(sequelize)
+if(process.env['NODE_ENV'] === 'production'){
+    module.exports = new Sequelize(process.env['DATABASE_URL']);
+}else{
+    module.exports = new Sequelize(
+      process.env['DB_DATABASE'], 
+      process.env['DB_USER'], 
+      process.env['DB_PASSWORD'], 
+      {
+        host: process.env['DB_HOST'],
+        dialect: process.env['DIALECT'],
+        port: process.env['DB_PORT'],
+        logging: false
+      });
 }
-
-const { users, todoTasks } = sequelize.models
-todoTasks.belongsTo(users)
-
-module.exports = sequelize

@@ -12,5 +12,4 @@ router.get('/:id', permission('admin'), getUserById)
 router.delete('/:id', permission('admin'), deleteUserAndTodoTasks)
 router.patch('/:id', permission('admin'), updateUser)
 
-
 module.exports = router
