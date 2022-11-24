@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 try {
     sequelize.authenticate();
-    sequelize.sync({ force: false });
+    sequelize.sync({ force: true });
     console.log('Connected to DB');
 } catch (error) {
     console.log('Unable to connect to DB:', error);

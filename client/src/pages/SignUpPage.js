@@ -9,7 +9,7 @@ const SignUpPage = () => {
   const onSubmit = async (values) => {
     setError(''); // Resetting submit errors
     setShowSuccessMessage(''); // Resetting submit success message
-    const response = await fetch(process.env.REACT_APP_BACKEND_API + '/api/auth/signup', {
+    const response = await fetch(process.env.REACT_APP_BACKEND_API + '/auth/signup', {
       method: 'POST',
       body: JSON.stringify(values),
       headers: {
