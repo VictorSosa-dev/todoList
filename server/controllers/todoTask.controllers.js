@@ -3,21 +3,20 @@ const todoTasks = require('../models/todoTasks')
 async function getTodoTasks(req, res) {
     const { user } = req
     const todo = await todoTasks.findAll({
-        where: { userId: user.id }
+        //where: { userId: user.id } R
     })
     res.json(todo)
 }
 
 async function createTodoTask(req, res) {
     const { user } = req
-    if(user.id == req.body.userId) {
+    if (user.id == req.body.userId) {
         const todoTask = await todoTasks.create({
-            title: req.body.title,
-            description: req.body.description,
-            userId: req.user.id
+            task: req.body.task,
+            completed: req.body.completed
         })
         await todoTask.save()
-        res.status(201).json({data: todoTask})
+        res.status(201).json({ data: todoTask })
     } else {
         res.status(401).json({ message: "Unauthorized, login please" })
     }
@@ -27,7 +26,7 @@ async function deleteTodoTask(req, res) {
     const todoTask = await todoTasks.findOne({
         where: { id: req.params.id }
     })
-    if(!todoTask){
+    if (!todoTask) {
         return res.status(404).json({ message: 'Task not found' })
     }
 
@@ -45,7 +44,7 @@ async function updateTodoTask(req, res) {
             id: req.params.id
         }
     })
-    if(!todoTask){
+    if (!todoTask) {
         return res.status(404).json({ message: 'Task not found' })
     }
     await todoTasks.update(req.body, {

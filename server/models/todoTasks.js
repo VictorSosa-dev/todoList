@@ -2,22 +2,18 @@ const { DataTypes } = require('sequelize')
 const sequelize = require('../config/db.js')
 
 const todoTasks = sequelize.define('todoTasks', {
-    title: {
+    task: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true
     },
-    description: {
-        type: DataTypes.STRING,
-        required: true
-    },
-    status: {
+    completed: {
         type: DataTypes.BOOLEAN,
         required: true,
     },
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        //allowNull: false,
         references: {
             model: 'users',
             key: 'id'

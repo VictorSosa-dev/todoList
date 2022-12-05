@@ -1,6 +1,6 @@
 // authentication.js
 const { response } = require('express')
-const users = require('../models/users.js');
+const users = require('../models/users.js')
 const jwt = require('jsonwebtoken')
 const secretkey = require('../config/secret.js')
 

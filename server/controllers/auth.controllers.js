@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const secretkey = require('../config/secret.js')
-const users = require('../models/users.js');
+const users = require('../models/users.js')
 
 const logIn =  async (req, res) => {
     const { body } = req
@@ -13,13 +13,13 @@ const logIn =  async (req, res) => {
     }
   
     if (!user.validPassword(body.password)) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid credentials' })
     }
   
     // Generate a token
     const token = jwt.sign({ userId: user.id }, secretkey, {
       expiresIn: 3600 // 1 hour, 
-    });
+    })
   
     return res.json({
       message: 'Authenticated sucessfully',
@@ -28,10 +28,10 @@ const logIn =  async (req, res) => {
 }
 
 async function signUp(req, res) {
-  const body = req.body;
-  let user = await users.findOne({ where: { email: body.email } });
+  const body = req.body
+  let user = await users.findOne({ where: { email: body.email } })
   if (user) {
-    return res.status(400).json({ message: 'User already exists' });
+    return res.status(400).json({ message: 'User already exists' })
   }
   user = await users.create({
     username: body.username,
@@ -40,11 +40,11 @@ async function signUp(req, res) {
     email: body.email,
     password: body.password,
     type: body.type ? body.type : 'client',
-  });
+  })
 
   //Save user
-  await user.save();
-  return res.json({ message: 'User created successfully' });
+  await user.save()
+  return res.json({ message: 'User created successfully' })
 }
 
 module.exports = {
