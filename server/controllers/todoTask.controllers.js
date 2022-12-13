@@ -2,18 +2,25 @@ const todoTasks = require('../models/todoTasks')
 
 async function getTodoTasks(req, res) {
     const { user } = req
-    const todo = await todoTasks.findAll({
-        //where: { userId: user.id } R
-    })
-    res.json(todo)
+    if (user) {
+        const todo = await todoTasks.findAll(
+            { where: { userId: user.id } }
+        )
+        res.json(todo)}
+    else {
+        res.status(401).json({ message: "Unauthorized, login please" })
+    }
 }
 
 async function createTodoTask(req, res) {
     const { user } = req
-    if (user.id == req.body.userId) {
+    const { task, completed } = req.body
+    console.log(req.body)
+    if (user) {
         const todoTask = await todoTasks.create({
-            task: req.body.task,
-            completed: req.body.completed
+            task,
+            completed,
+            userId: user.id
         })
         await todoTask.save()
         res.status(201).json({ data: todoTask })

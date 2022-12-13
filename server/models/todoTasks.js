@@ -13,7 +13,7 @@ const todoTasks = sequelize.define('todoTasks', {
     },
     userId: {
         type: DataTypes.INTEGER,
-        //allowNull: false,
+        allowNull: false,
         references: {
             model: 'users',
             key: 'id'

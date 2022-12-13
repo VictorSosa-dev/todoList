@@ -4,7 +4,7 @@ const users = require('../models/users.js')
 const jwt = require('jsonwebtoken')
 const secretkey = require('../config/secret.js')
 
-const authenticate = (req, res, next) => {
+const authenticate = (req, res, next) => { 
   const { authorization } = req.headers
   jwt.verify(authorization, secretkey, async (err, decoded) => {
     if (err) {
@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
         msgError: err
       }})
     }
-    req.user = await users.findOne({ where: { id: decoded.userId } })
+    req.user = await users.findOne({ where: { id: decoded.user.id } })
     next()
   })
 }

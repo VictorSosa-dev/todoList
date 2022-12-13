@@ -1,12 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import BaseLayout from './layouts/BaseLayout';
-
+import React from 'react'
+import BaseLayout from './layouts/BaseLayout'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom"
 // Pages
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
-import NotFoundPage from './pages/NotFoundPage';
-import ProductsPage from './pages/ProductsPage';
+import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
+import NotFoundPage from './pages/NotFoundPage'
+import TodoPage from './pages/TodoPage'
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    window.localStorage.getItem('token')
+      ? <Component {...props} />
+      : <Redirect to={{
+          pathname:'/',
+          state:{from: props.location} 
+      }}/>
+  )} />
+)
 
 function App() {
   return (
@@ -15,12 +30,12 @@ function App() {
         <Switch>
           <Route exact path="/" component={LoginPage} />
           <Route exact path="/signup" component={SignUpPage} />
-          <Route exact path="/products" component={ProductsPage} />
+          <PrivateRoute exact path="/todo" component={TodoPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </BaseLayout>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

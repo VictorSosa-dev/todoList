@@ -17,13 +17,24 @@ const logIn =  async (req, res) => {
     }
   
     // Generate a token
-    const token = jwt.sign({ userId: user.id }, secretkey, {
-      expiresIn: 3600 // 1 hour, 
-    })
+    const token = jwt.sign({ 
+      user:{
+        id: user.id,
+        username: user.username,
+        type: user.type
+      }
+      }, 
+      secretkey, 
+      { expiresIn: 3600 }
+    )
   
     return res.json({
       message: 'Authenticated sucessfully',
       token,
+      user: {
+        id: user.id,
+        username: user.username
+      }
     })
 }
 

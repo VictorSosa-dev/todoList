@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 try {
     sequelize.authenticate();
-    sequelize.sync({ force: true });
+    sequelize.sync({ force: false });
     console.log('Connected to DB');
 } catch (error) {
     console.log('Unable to connect to DB:', error);
@@ -23,4 +23,4 @@ const port = process.env.PORT || 3000
 // Routes
 app.use('/', routers)
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`http://localhost:${port}`))
