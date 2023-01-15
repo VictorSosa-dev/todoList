@@ -6,6 +6,8 @@ import {
   Route,
   Redirect
 } from "react-router-dom"
+
+
 // Pages
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage'
@@ -30,7 +32,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={LoginPage} />
           <Route exact path="/signup" component={SignUpPage} />
-          <PrivateRoute exact path="/todo" component={TodoPage} />
+          {/* <PrivateRoute exact path="/todo" component={TodoPage} /> */}
+          <Route exact path="/todo" component={TodoPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </BaseLayout>

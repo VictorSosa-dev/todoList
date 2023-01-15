@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react"
-import Todo from "../Todo"
-import Form from "../Form"
-import Header from "../HeaderTodo"
-import "./TodoList.css"
-import api from "../../services/todoServices"
+import React, { useState, useEffect } from 'react'
+import Todo from '../Todo'
+import Form from '../Form'
+import HeaderTodo from '../HeaderTodo'
+import api from '../../services/todoServices'
 
 
 function TodoList() {
@@ -46,14 +45,20 @@ function TodoList() {
   ))
 
   return (
-    <div className="TodoList">
-      <h1>
-        Todo List <span>A simple React Todo List App</span>
-      </h1>
-      <Header todos={todos} />
-      <Form createTodo={createTodo} />
-      <ul>{todosList}</ul>
-    </div>
+    <>
+      <div className='flex flex-col items-center justify-center my-1 mx-3'>
+        <h5 className='text-slate-500 text-2xl font-medium'>
+          Hello, here are your latest tasks
+        </h5>
+        <HeaderTodo todos={todos} />
+      </div>
+      <div> 
+        <Form createTodo={createTodo} />
+        <div className='h-80 overflow-scroll'>
+          <ul className='flex flex-col w-full'>{todosList}</ul>
+        </div>
+      </div>
+    </>
   )
 }
 

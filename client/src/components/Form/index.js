@@ -1,12 +1,11 @@
 import React, { useReducer, useState } from 'react'
-import './Form.css'
 
 function Form({ createTodo }) {
   const [error, setError] = useState(false)
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      task: ""
+      task: ''
     }
   )
 
@@ -21,25 +20,33 @@ function Form({ createTodo }) {
         task: userInput.task,
         completed: false,
       })
-      setUserInput({ task: "" })
-    }else{
+      setUserInput({ task: '' })
+      setError(false)
+    } else {
       setError(true)
     }
   }
 
   return (
-    <form className="NewTodoForm" onSubmit={handleSubmit}>
-      <label htmlFor="task">New todo</label>
-      <input
-        value={userInput.task}
-        onChange={handleChange}
-        id="task"
-        type="text"
-        name="task"
-        placeholder={error ? "Please enter a task" : "New Todo"}
-      />
-      <button>Add Todo</button>
-    </form>
+    <>
+      <div className='text-red-500'>{error ? 'Please enter a task' : ''}</div>
+      <form onSubmit={handleSubmit}>
+        <div className='mb-4'>
+          <div className='flex mt-4'>
+            <input
+              value={userInput.task}
+              onChange={handleChange}
+              id='task'
+              type='text'
+              name='task'
+              className='shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker'
+              placeholder='New Todo'
+            />
+            <button className='p-3 rounded text-white rounded bg-indigo-600 hover:bg-indigo-800'>Add</button>
+          </div>
+        </div>
+      </form>
+    </>
   )
 }
 

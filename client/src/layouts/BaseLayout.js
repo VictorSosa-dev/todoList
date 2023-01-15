@@ -3,10 +3,9 @@ import Footer from '../components/Footer'
 
 const BaseLayout = ({ children }) => (
   <>
-    <main className="bg-white">
+    <main>  
       {children}
     </main>
-    <Footer />
   </>
 )
 

@@ -34,7 +34,12 @@ async function getTodos() {
         authorization: token
       }
     }
-  ).then((res) => res.json())
+  ).then((res) =>{
+    if (!res.ok) {
+        throw Error('Could not fetch the data for that resource')
+    }
+    return res.json()
+  })
 }
 
 async function deleteTodo(id) {
